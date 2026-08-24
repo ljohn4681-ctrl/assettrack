@@ -384,9 +384,73 @@ const updateAsset = async (req, res) => {
   }
 };
 
+const deleteAsset = async (req, res) => {
+  try {
+    const assetId = parseInt(req.params.id, 10);
+
+    if (Number.isNaN(assetId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid asset ID.",
+      });
+    }
+
+    const pool = await connectDB();
+
+    // Check if asset exists
+    const existingAsset = await pool
+      .request()
+      .input("Id", sql.Int, assetId)
+      .query(`
+        SELECT
+          Id,
+          AssetCode,
+          AssetName
+        FROM dbo.Assets
+        WHERE Id = @Id
+      `);
+
+    if (existingAsset.recordset.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Asset not found.",
+      });
+    }
+
+    const asset = existingAsset.recordset[0];
+
+    // Delete asset
+    await pool
+      .request()
+      .input("Id", sql.Int, assetId)
+      .query(`
+        DELETE FROM dbo.Assets
+        WHERE Id = @Id
+      `);
+
+    return res.status(200).json({
+      success: true,
+      message: "Asset deleted successfully.",
+      data: {
+        id: asset.Id,
+        assetCode: asset.AssetCode,
+        assetName: asset.AssetName,
+      },
+    });
+  } catch (error) {
+    console.error("Delete asset error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to delete asset.",
+    });
+  }
+};
+
 module.exports = {
   createAsset,
   getAssets,
   getAssetById,
   updateAsset,
+  deleteAsset,
 };
