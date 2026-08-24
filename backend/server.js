@@ -4,6 +4,9 @@ require("dotenv").config();
 
 const { connectDB } = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
+const assetRoutes = require("./routes/assetRoutes");
+const { authenticateToken } = require("./middleware/authMiddleware");
+
 
 const app = express();
 
@@ -15,6 +18,7 @@ app.use(express.json());
 
 // Authentication routes
 app.use("/api/auth", authRoutes);
+app.use("/api/assets", assetRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {
@@ -51,6 +55,14 @@ app.get("/api/categories", async (req, res) => {
       message: "Unable to retrieve categories.",
     });
   }
+});
+
+app.get("/api/protected", authenticateToken, (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "You have access to this protected route.",
+    user: req.user,
+  });
 });
 
 // Start API

@@ -5,7 +5,7 @@ const { connectDB, sql } = require("../config/database");
 
 const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+   const { username, password } = req.body || {};
 
     // Validate required fields
     if (!username || !password) {
