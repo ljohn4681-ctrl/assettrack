@@ -110,3 +110,20 @@ BEGIN
     );
 END
 GO
+
+-- =============================================
+-- DEFAULT CATEGORIES
+-- =============================================
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Categories)
+BEGIN
+    INSERT INTO dbo.Categories (CategoryName, Description)
+    VALUES
+        ('Laptop', 'Laptop computers and portable workstations'),
+        ('Monitor', 'Computer monitors and displays'),
+        ('Printer', 'Printers and multifunction devices'),
+        ('Mobile Device', 'Smartphones and tablets'),
+        ('Network Equipment', 'Routers, switches, and network devices'),
+        ('Office Equipment', 'General office equipment');
+END
+GO

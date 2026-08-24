@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
+const { connectDB } = require("./config/database");
+
 const app = express();
 
 const PORT = process.env.PORT || 5000;
@@ -18,7 +20,42 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Start the server
-app.listen(PORT, () => {
+// Retrieve categories from Microsoft SQL Server
+app.get("/api/categories", async (req, res) => {
+  try {
+    const pool = await connectDB();
+
+    const result = await pool.request().query(`
+      SELECT
+        Id,
+        CategoryName,
+        Description,
+        CreatedAt
+      FROM dbo.Categories
+      ORDER BY CategoryName
+    `);
+
+    res.status(200).json({
+      success: true,
+      data: result.recordset,
+    });
+  } catch (error) {
+    console.error("Category retrieval error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Unable to retrieve categories.",
+    });
+  }
+});
+
+// Start the API
+app.listen(PORT, async () => {
   console.log(`AssetTrack API running on http://localhost:${PORT}`);
+
+  try {
+    await connectDB();
+  } catch (error) {
+    console.error("API started, but database connection is unavailable.");
+  }
 });
