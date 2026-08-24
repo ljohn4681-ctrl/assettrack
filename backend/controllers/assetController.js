@@ -131,6 +131,107 @@ const createAsset = async (req, res) => {
   }
 };
 
+const getAssets = async (req, res) => {
+  try {
+    const pool = await connectDB();
+
+    const result = await pool.request().query(`
+      SELECT
+        a.Id,
+        a.AssetCode,
+        a.AssetName,
+        a.CategoryId,
+        c.CategoryName,
+        a.SerialNumber,
+        a.PurchaseDate,
+        a.Status,
+        a.AssignedTo,
+        a.Remarks,
+        a.CreatedAt,
+        a.UpdatedAt
+      FROM dbo.Assets a
+      INNER JOIN dbo.Categories c
+        ON a.CategoryId = c.Id
+      ORDER BY a.Id DESC
+    `);
+
+    return res.status(200).json({
+      success: true,
+      count: result.recordset.length,
+      data: result.recordset,
+    });
+  } catch (error) {
+    console.error("Retrieve assets error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to retrieve assets.",
+    });
+  }
+};
+
+
+const getAssetById = async (req, res) => {
+  try {
+    const assetId = parseInt(req.params.id, 10);
+
+    if (Number.isNaN(assetId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid asset ID.",
+      });
+    }
+
+    const pool = await connectDB();
+
+    const result = await pool
+      .request()
+      .input("Id", sql.Int, assetId)
+      .query(`
+        SELECT
+          a.Id,
+          a.AssetCode,
+          a.AssetName,
+          a.CategoryId,
+          c.CategoryName,
+          a.SerialNumber,
+          a.PurchaseDate,
+          a.Status,
+          a.AssignedTo,
+          a.Remarks,
+          a.CreatedAt,
+          a.UpdatedAt
+        FROM dbo.Assets a
+        INNER JOIN dbo.Categories c
+          ON a.CategoryId = c.Id
+        WHERE a.Id = @Id
+      `);
+
+    const asset = result.recordset[0];
+
+    if (!asset) {
+      return res.status(404).json({
+        success: false,
+        message: "Asset not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: asset,
+    });
+  } catch (error) {
+    console.error("Retrieve asset error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to retrieve asset.",
+    });
+  }
+};
+
 module.exports = {
   createAsset,
+  getAssets,
+  getAssetById,
 };
