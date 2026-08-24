@@ -2,7 +2,7 @@
 
 AssetTrack is an Office Asset and Inventory Management System developed as a full-stack web application.
 
-## Technology Stack
+# Technology Stack
 
 - ReactJS
 - Ant Design
@@ -12,7 +12,7 @@ AssetTrack is an Office Asset and Inventory Management System developed as a ful
 - RESTful API
 - Git and GitHub
 
-## Planned Features
+# Planned Features
 
 - User authentication
 - Dashboard
