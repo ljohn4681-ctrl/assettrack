@@ -5,6 +5,7 @@ require("dotenv").config();
 const { connectDB } = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
 const assetRoutes = require("./routes/assetRoutes");
+const reportRoutes = require("./routes/reportRoutes");
 const { authenticateToken } = require("./middleware/authMiddleware");
 
 
@@ -19,6 +20,7 @@ app.use(express.json());
 // Authentication routes
 app.use("/api/auth", authRoutes);
 app.use("/api/assets", assetRoutes);
+app.use("/api/reports", reportRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {
