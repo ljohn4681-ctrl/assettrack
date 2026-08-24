@@ -17,5 +17,576 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background: #f5f5f5;
+  background: #05070d;
+}
+
+.login-page {
+  position: relative;
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(3, 5, 12, 0.82),
+      rgba(9, 5, 20, 0.72),
+      rgba(2, 4, 10, 0.88)
+    ),
+    url("/images/login-bg.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px 24px;
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.login-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(124, 58, 237, 0.12),
+      transparent 38%
+    );
+
+  backdrop-filter: blur(2px);
+
+  z-index: -3;
+}
+
+.background-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: -2;
+}
+
+.glow-one {
+  width: 420px;
+  height: 420px;
+
+  top: -140px;
+  left: -120px;
+
+  background: rgba(124, 58, 237, 0.18);
+
+  animation: glowMoveOne 12s ease-in-out infinite alternate;
+}
+
+.glow-two {
+  width: 360px;
+  height: 360px;
+
+  bottom: -130px;
+  right: -80px;
+
+  background: rgba(168, 85, 247, 0.14);
+
+  animation: glowMoveTwo 15s ease-in-out infinite alternate;
+}
+
+@keyframes glowMoveOne {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(100px, 70px);
+  }
+}
+
+@keyframes glowMoveTwo {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(-100px, -70px);
+  }
+}
+
+.particle-layer {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: rgba(196, 181, 253, 0.55);
+
+  box-shadow:
+    0 0 10px rgba(168, 85, 247, 0.5),
+    0 0 22px rgba(124, 58, 237, 0.25);
+
+  animation:
+    particleFloat 14s linear infinite,
+    particlePulse 3s ease-in-out infinite alternate;
+}
+
+.particle-1 {
+  left: 8%;
+  top: 80%;
+  animation-delay: 0s;
+  animation-duration: 13s;
+}
+
+.particle-2 {
+  left: 17%;
+  top: 40%;
+  width: 4px;
+  height: 4px;
+  animation-delay: -3s;
+  animation-duration: 16s;
+}
+
+.particle-3 {
+  left: 26%;
+  top: 75%;
+  animation-delay: -6s;
+  animation-duration: 18s;
+}
+
+.particle-4 {
+  left: 36%;
+  top: 20%;
+  width: 8px;
+  height: 8px;
+  animation-delay: -2s;
+  animation-duration: 17s;
+}
+
+.particle-5 {
+  left: 44%;
+  top: 88%;
+  width: 5px;
+  height: 5px;
+  animation-delay: -7s;
+  animation-duration: 15s;
+}
+
+.particle-6 {
+  left: 53%;
+  top: 30%;
+  animation-delay: -5s;
+  animation-duration: 19s;
+}
+
+.particle-7 {
+  left: 62%;
+  top: 78%;
+  width: 4px;
+  height: 4px;
+  animation-delay: -9s;
+  animation-duration: 17s;
+}
+
+.particle-8 {
+  left: 70%;
+  top: 52%;
+  animation-delay: -4s;
+  animation-duration: 14s;
+}
+
+.particle-9 {
+  left: 78%;
+  top: 85%;
+  width: 8px;
+  height: 8px;
+  animation-delay: -1s;
+  animation-duration: 20s;
+}
+
+.particle-10 {
+  left: 87%;
+  top: 35%;
+  width: 5px;
+  height: 5px;
+  animation-delay: -8s;
+  animation-duration: 16s;
+}
+
+.particle-11 {
+  left: 93%;
+  top: 70%;
+  animation-delay: -3s;
+  animation-duration: 18s;
+}
+
+.particle-12 {
+  left: 5%;
+  top: 25%;
+  width: 4px;
+  height: 4px;
+  animation-delay: -10s;
+  animation-duration: 21s;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(80px) translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translateY(-45vh) translateX(25px);
+  }
+
+  90% {
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: translateY(-100vh) translateX(-20px);
+    opacity: 0;
+  }
+}
+
+@keyframes particlePulse {
+  from {
+    filter: brightness(0.8);
+  }
+
+  to {
+    filter: brightness(1.5);
+  }
+}
+
+.login-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 22px;
+  color: #ffffff;
+}
+
+.logo-shell {
+  position: relative;
+  width: 100px;
+  height: 100px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-glow {
+  position: absolute;
+
+  width: 92px;
+  height: 92px;
+
+  border-radius: 28px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(124, 58, 237, 0.75),
+    rgba(168, 85, 247, 0.35)
+  );
+
+  filter: blur(24px);
+
+  opacity: 0.65;
+
+  animation: logoPulse 3.5s ease-in-out infinite alternate;
+}
+
+.logo-badge {
+  position: relative;
+
+  width: 88px;
+  height: 88px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 24px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.94),
+    rgba(255, 255, 255, 0.76)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(168, 85, 247, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  backdrop-filter: blur(18px);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.logo-badge:hover {
+  transform: translateY(-3px) scale(1.03);
+
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.42),
+    0 0 30px rgba(124, 58, 237, 0.35);
+}
+
+.login-logo {
+  width: 68px;
+  height: 68px;
+
+  object-fit: contain;
+
+  filter: drop-shadow(
+    0 3px 6px rgba(0, 0, 0, 0.22)
+  );
+
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes logoPulse {
+  from {
+    transform: scale(0.92);
+    opacity: 0.45;
+  }
+
+  to {
+    transform: scale(1.08);
+    opacity: 0.8;
+  }
+}
+
+.brand-title.ant-typography {
+  color: #ffffff !important;
+  margin-bottom: 0 !important;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.brand-subtitle.ant-typography {
+  display: block;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.brand-caption.ant-typography {
+  display: inline-block;
+  margin-top: 10px;
+  color: #a855f7;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.glass-card.ant-card {
+  position: relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17, 20, 32, 0.68),
+      rgba(10, 12, 22, 0.56)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  overflow: hidden;
+}
+
+.glass-card.ant-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.08),
+      transparent 32%,
+      transparent 68%,
+      rgba(168, 85, 247, 0.05)
+    );
+
+  pointer-events: none;
+}
+
+.glass-card .ant-card-body {
+  padding: 28px;
+}
+
+.login-title.ant-typography {
+  color: #ffffff !important;
+  margin-bottom: 0 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.login-description.ant-typography {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+}
+
+.form-label {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.glass-input.ant-input-affix-wrapper,
+.glass-input.ant-input-password {
+  background: rgba(5, 8, 18, 0.45) !important;
+  border: 1px solid rgba(168, 85, 247, 0.35) !important;
+  color: #ffffff !important;
+  border-radius: 10px;
+}
+
+.glass-input.ant-input-affix-wrapper input,
+.glass-input.ant-input-password input {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+.glass-input.ant-input-affix-wrapper input::placeholder,
+.glass-input.ant-input-password input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.glass-input.ant-input-affix-wrapper .anticon,
+.glass-input.ant-input-password .anticon {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.glass-input.ant-input-affix-wrapper:hover,
+.glass-input.ant-input-affix-wrapper:focus,
+.glass-input.ant-input-affix-wrapper-focused,
+.glass-input.ant-input-password:hover,
+.glass-input.ant-input-password:focus,
+.glass-input.ant-input-password-focused {
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.16) !important;
+}
+
+.login-button.ant-btn {
+  position: relative;
+  overflow: hidden;
+
+  height: 48px;
+
+  border: none;
+  border-radius: 11px;
+
+  font-weight: 700;
+  letter-spacing: 0.8px;
+
+  background: linear-gradient(
+    90deg,
+    #6d28d9,
+    #8b5cf6,
+    #7c3aed
+  );
+
+  background-size: 200% 100%;
+
+  box-shadow:
+    0 12px 28px rgba(124, 58, 237, 0.32);
+
+  animation: buttonGradient 6s ease infinite;
+}
+
+.login-button.ant-btn:hover,
+.login-button.ant-btn:focus {
+  background: linear-gradient(90deg, #6d28d9, #9333ea) !important;
+}
+
+@keyframes buttonGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.login-footer {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 480px) {
+  .glass-card .ant-card-body {
+    padding: 22px;
+  }
+
+  .brand-title.ant-typography {
+    font-size: 28px !important;
+  }
+
+  .login-footer {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle,
+  .background-glow,
+  .logo-glow,
+  .login-button.ant-btn {
+    animation: none !important;
+  }
 }

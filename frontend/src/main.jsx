@@ -10,8 +10,8 @@ createRoot(document.getElementById("root")).render(
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "#4f46e5",
-          borderRadius: 8,
+          colorPrimary: "#7c3aed",
+          borderRadius: 10,
         },
       }}
     >
