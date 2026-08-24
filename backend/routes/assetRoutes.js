@@ -4,6 +4,7 @@ const {
   createAsset,
   getAssets,
   getAssetById,
+  updateAsset,
 } = require("../controllers/assetController");
 
 const { authenticateToken } = require("../middleware/authMiddleware");
@@ -16,4 +17,7 @@ router.get("/:id", authenticateToken, getAssetById);
 
 router.post("/", authenticateToken, createAsset);
 
+router.put("/:id", authenticateToken, updateAsset);
+
 module.exports = router;
+
