@@ -699,49 +699,143 @@ AssetTrack implements the following basic security practices:
 
 # Challenges Encountered
 
-## SQL Server Connectivity
+This project was also a learning experience for me. As a fresh graduate, some of the applications and technologies used in this assessment were new to me. I already had a basic background and understanding of how some of them work, but this was my first time using several of these technologies together in one complete application.
 
-The backend initially required additional Microsoft SQL Server configuration before Node.js could connect successfully.
+I wanted to be transparent about my development process because this assessment was not only about completing the system for me, but also about learning how the different technologies work together.
 
-TCP/IP was enabled, SQL Server authentication was configured, and port `1433` was used for the application connection.
+## Learning a Different Database Environment
 
-This reinforced the importance of checking both application configuration and database server network configuration when diagnosing database connectivity problems.
+Microsoft SQL Server was not the database environment I was most familiar with before this project.
 
-## JWT Authentication
+I already understood the basic purpose of a database, such as creating tables, storing records, retrieving data, updating information, and working with relationships. The main difference for me was learning the structure, configuration, connection setup, and tools used by Microsoft SQL Server.
 
-JWT authentication was implemented to protect API endpoints.
+One of the challenges I encountered was connecting the ExpressJS backend to SQL Server. I had to understand SQL Server authentication, TCP/IP configuration, port `1433`, database users, permissions, and how the backend application communicates with the database.
 
-During final testing, an expired token remained in browser local storage. The frontend initially continued displaying the protected interface even though the backend correctly rejected the token.
+Once I understood the setup, the database functions became easier to work with because the main database concepts were already familiar to me.
 
-An Axios response interceptor was added so that a `401 Unauthorized` response automatically removes the invalid session and redirects the user to Login.
+## Connecting the Frontend, API, and Database
 
-## React Hooks and ESLint
+Another challenge was understanding how all parts of the application communicate with each other.
 
-A React Hooks warning occurred while asynchronous data-loading functions were being called from `useEffect`.
+The project follows this flow:
 
-The initial loading logic was restructured so API calls were handled safely inside the effect while avoiding unnecessary hook dependency warnings.
+```text
+ReactJS + Ant Design
+        ↓
+      Axios
+        ↓
+ExpressJS REST API
+        ↓
+Microsoft SQL Server
+```
 
-## Loading Assets and Categories
+I already knew what I wanted the system to do, but some of the actual connection code, syntax, configuration, and setup were new to me.
 
-The Assets interface requires both asset information and category data.
+I used AI as a learning and development guide, especially when working with unfamiliar setup, code connections, syntax, and troubleshooting errors. Some of the technical connection code was developed with AI guidance.
 
-`Promise.all()` was used during initial loading so both requests could be executed concurrently before rendering the required information.
+However, the functions of the system, the workflow, the logic of what should happen, the information that should appear on the Dashboard, and the overall UI and user experience were based on how I wanted the system to work.
 
-## Printable Report Layout
+For example, I decided what the administrator should see, what information should be available on the Dashboard, how asset records should be created and managed, what statuses should be used, and what information should appear in the report.
 
-The original report table used horizontal scrolling on screen.
+For me, the important part was not only making the code work, but also understanding why each part was needed and testing how it connects with the rest of the application.
 
-This caused one of the table columns to be partially hidden in browser print preview.
+## Authentication and Expired Tokens
 
-The table and print-specific CSS were adjusted so the complete report fits properly on the printed page without a horizontal scrollbar.
+JWT authentication was another part that I had to understand more while developing the project.
 
-## Git Workflow
+The login functionality was able to generate a token and protect the API endpoints. However, during final testing, I encountered an issue where an expired token remained stored in the browser.
 
-Git was used throughout development rather than committing the entire project only at the end.
+The backend correctly rejected the expired token, but the frontend was still displaying the protected Dashboard.
 
-Features such as database setup, authentication, CRUD operations, reporting, frontend functionality, and styling were committed separately to maintain a clearer project development history.
+I fixed this by adding handling for `401 Unauthorized` responses in Axios. When the authentication token becomes invalid or expires, the application now removes the stored login information and redirects the user back to the Login page.
 
----
+This helped me understand more clearly how frontend and backend authentication work together.
+
+## React Hooks and Data Loading
+
+While building the Assets page, I encountered a React Hooks and ESLint warning related to asynchronous functions being called inside `useEffect`.
+
+At first, I did not fully understand why it was being flagged because the application could still run.
+
+After reviewing the issue, I learned more about how React handles effects and dependencies. I restructured the initial data-loading process and used `Promise.all()` to retrieve the asset records and category information together.
+
+This also made the loading process cleaner and helped me understand React Hooks better.
+
+## Asset CRUD Operations
+
+Implementing the CRUD functions also helped me understand more about how the frontend, REST API, and database work together.
+
+The application uses the following operations:
+
+```text
+CREATE
+POST /api/assets
+
+RETRIEVE
+GET /api/assets
+
+UPDATE
+PUT /api/assets/:id
+
+DELETE
+DELETE /api/assets/:id
+```
+
+I tested each function separately before connecting them to the frontend interface.
+
+This helped me understand that when an administrator performs an action in the React interface, the request goes through the REST API before the data is stored or changed in Microsoft SQL Server.
+
+## Report Generation and Printing
+
+The report functionality worked correctly on screen, but I encountered another issue during print testing.
+
+The original report table had horizontal scrolling, which caused one of the columns to be partially hidden in the browser print preview.
+
+I adjusted the table layout and print-specific CSS so the complete report could fit properly on the printed page without a horizontal scrollbar.
+
+This taught me that even if a feature works correctly on the screen, it is still important to test how it behaves in other outputs such as printing.
+
+## Git and GitHub
+
+I also became more familiar with using Git and GitHub during this project.
+
+Instead of uploading the whole project only after everything was finished, I committed different stages of development separately.
+
+Some of the commits include:
+
+```text
+User authentication
+Create asset functionality
+Retrieve asset functionality
+Update asset functionality
+Delete asset functionality
+Asset summary report
+Frontend dashboard
+Asset management interface
+Report interface
+UI styling
+Documentation
+```
+
+This helped me understand how Git can be used to track development progress and make changes easier to review.
+
+## Overall Learning Experience
+
+Overall, this assessment introduced me to several applications, tools, and configurations that I had not used extensively before.
+
+I want to be transparent that AI was an important learning tool for me during the development of this project. It helped guide me through unfamiliar technologies, configuration, code connections, debugging, and understanding errors.
+
+At the same time, I did not simply ask AI to decide what the system should be.
+
+I was the one who decided the purpose of the system, the functions it should have, the workflow, the information that should be displayed, the asset management process, the Dashboard contents, the report requirements, and the overall UI and user experience.
+
+The Dashboard and main administrator interface were designed around what I believed an asset administrator would need to see and manage.
+
+As a fresh graduate, I know that there are still many technologies and development practices that I need to learn. I may not immediately know how every unfamiliar application works, but I am willing to research, ask questions, test solutions, understand the logic behind them, and learn how to use them properly.
+
+This project showed me that even when I encounter unfamiliar tools, I can adapt, learn quickly, troubleshoot problems, and turn an idea into a working application.
+
+I am eager to continue learning and improve my skills through actual development experience.
 
 # Development Workflow
 
