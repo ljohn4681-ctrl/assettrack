@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -15,6 +16,7 @@ const { Title, Text } = Typography;
 
 function Login() {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     try {
@@ -30,9 +32,9 @@ function Login() {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      message.success("Login successful!");
+    message.success("Login successful!");
 
-      console.log("Logged in user:", user);
+    navigate("/");
     } catch (error) {
       const errorMessage =
         error?.response?.data?.message ||
